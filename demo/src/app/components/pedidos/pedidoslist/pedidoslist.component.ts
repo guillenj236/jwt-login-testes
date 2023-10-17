@@ -12,7 +12,7 @@ export class PedidoslistComponent {
 
   lista: Pedido[] = [];
 
-  pedidoSelecionadaParaEdicao: Pedido = new Pedido();
+  objetoSelecionadoParaEdicao: Pedido = new Pedido();
   indiceSelecionadoParaEdicao!: number;
 
   modalService = inject(NgbModal);
@@ -56,15 +56,21 @@ export class PedidoslistComponent {
   }
 
 
+
+
+
+
+  // MÉTODOS DA MODAL
+
   adicionar(modal: any) {
-    this.pedidoSelecionadaParaEdicao = new Pedido();
+    this.objetoSelecionadoParaEdicao = new Pedido();
     this.indiceSelecionadoParaEdicao = -1;
 
     this.modalRef = this.modalService.open(modal, { size: 'sm' });
   }
 
   editar(modal: any, pedido: Pedido, indice: number) {
-    this.pedidoSelecionadaParaEdicao = Object.assign({}, pedido); //clonando o objeto se for edição... pra não mexer diretamente na referência da lista
+    this.objetoSelecionadoParaEdicao = Object.assign({}, pedido); //clonando o objeto se for edição... pra não mexer diretamente na referência da lista
     this.indiceSelecionadoParaEdicao = indice;
 
     this.modalRef = this.modalService.open(modal, { size: 'sm' });
@@ -74,18 +80,13 @@ export class PedidoslistComponent {
 
     this.listAll();
 
-    /*
-
-    if (this.pedidoSelecionadaParaEdicao.id > 0) { //MODO EDITAR
-      this.lista[this.indiceSelecionadoParaEdicao] = pedido;
-    } else {
-      pedido.id = 99;
-      this.lista.push(pedido);
-    }
-    */
-
     this.modalService.dismissAll();
 
   }
+
+
+
+
+
 
 }
