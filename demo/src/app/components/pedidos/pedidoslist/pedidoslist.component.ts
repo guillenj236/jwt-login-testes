@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Pedido } from 'src/app/models/pedido';
+import { Produto } from 'src/app/models/produto';
 import { PedidosService } from 'src/app/services/pedidos.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 export class PedidoslistComponent {
 
   lista: Pedido[] = [];
+
 
   objetoSelecionadoParaEdicao: Pedido = new Pedido();
   indiceSelecionadoParaEdicao!: number;
@@ -66,14 +68,14 @@ export class PedidoslistComponent {
     this.objetoSelecionadoParaEdicao = new Pedido();
     this.indiceSelecionadoParaEdicao = -1;
 
-    this.modalRef = this.modalService.open(modal, { size: 'sm' });
+    this.modalRef = this.modalService.open(modal, { size: 'md' });
   }
 
   editar(modal: any, pedido: Pedido, indice: number) {
     this.objetoSelecionadoParaEdicao = Object.assign({}, pedido); //clonando o objeto se for edição... pra não mexer diretamente na referência da lista
     this.indiceSelecionadoParaEdicao = indice;
 
-    this.modalRef = this.modalService.open(modal, { size: 'sm' });
+    this.modalRef = this.modalService.open(modal, { size: 'md' });
   }
 
   addOuEditarPedido(pedido: Pedido) {
