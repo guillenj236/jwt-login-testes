@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/models/usuario';
+import { Login } from 'src/app/models/login';
+import { User } from 'src/app/models/user';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +11,32 @@ import { Usuario } from 'src/app/models/usuario';
 })
 export class LoginComponent {
 
-  usuario: Usuario = new Usuario();
-  roteador = inject(Router);
+  
+  login: Login = new Login();
+  user = new User();
 
-  logar() {
-    if (this.usuario.login == 'admin' && this.usuario.senha == 'admin')
-      this.roteador.navigate(['admin/pedidos']);
-    else
-      alert('Login ou senha incorretos!');
+
+  roteador = inject(Router);
+  loginService = inject(LoginService);
+
+  constructor() {
+    this.loginService.removerToken();
   }
 
+  logar() {
+    this.loginService.logar(this.login).subscribe({
+      next: user => {
+        this.user = user;
+        this.loginService.addToken(user.token);
+        this.roteador.navigate(['admin/produtos']);
+      },
+      error: erro => {
+        alert('login ou senha incorretos');
+        console.error(erro);
+      }
+    });
+
+
+  }
 
 }

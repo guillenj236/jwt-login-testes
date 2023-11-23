@@ -20,13 +20,11 @@ export class ProdutosdetailsComponent {
   }
 
   salvar() {
-    //ISSO AQUI SERVE PARA EDITAR OU ADICIONAR... TANTO FAZ
-
     this.produtosService.save(this.produto).subscribe({
-      next: produto => { // QUANDO DÁ CERTO
+      next: produto => {
         this.retorno.emit(produto);
       },
-      error: erro => { // QUANDO DÁ ERRO
+      error: erro => {
         alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
         console.error(erro);
       }
